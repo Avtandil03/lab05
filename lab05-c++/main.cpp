@@ -11,30 +11,9 @@
 
 using namespace std;
 
-//void print_bits(void* buf, size_t size_in_bytes)
-//{
-//    char* ptr = (char*)buf;
-//
-//    for (size_t i = 0; i < size_in_bytes; i++) {
-//        for (short j = 7; j >= 0; j--) {
-//            printf("%d", (ptr[i] >> j) & 1);
-//        }
-//        printf(" ");
-//    }
-//    printf("\n");
-//}
-//
-//int main(void)
-//{
-//    size_t n;
-//    scanf("%d", &n);
-//    print_bits(&n, sizeof(n));
-//    system("PAUSE");
-//}
-
 void print_in_hex(int data[], size_t size)
 {
-    uint16_t endlHex = 0;
+    uint8_t endlHex = 0;
 
     for (size_t i = 0; i < size; i++)
     {        
@@ -48,14 +27,47 @@ void print_in_hex(int data[], size_t size)
     }              
 }
 
+void print_in_binary(int data[], size_t size)
+{
+    uint8_t endlBin = 0;
+
+    for (size_t j = 0; j < size; j++)
+    {
+        unsigned int i ;
+        i = 1 << (sizeof(uint8_t) * 8 - 1);
+
+        while (i > 0)
+        {
+            if (data[j] & i)
+                printf("1");
+            else
+                printf("0");
+            i >>= 1;
+        }
+        cout<< " ";
+        endlBin++;
+        if (endlBin >= 4)
+        {
+            cout << endl;
+            endlBin = 0;
+        }
+    }    
+}
+
 int main(void)
 {
     setlocale(LC_ALL, "Russian");
     const size_t size = 16;
     int data[size] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 };
-   
-    print_in_hex(data, size);
+    cout << "числа: "<< endl;
+    for (size_t i = 0; i < size; i++)
+        cout  << data[i] << ', ';
 
+    cout <<endl<< "В hex:" << endl;
+    print_in_hex(data, size);
+    cout <<endl<< "В binary:" << endl;
+    print_in_binary(data, size);
+        
     cout << endl;
     system("PAUSE");
 }
