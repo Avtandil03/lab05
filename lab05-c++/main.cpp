@@ -59,15 +59,10 @@ int main(void)
     setlocale(LC_ALL, "Russian");
     const size_t size = 16;
     int data[size] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 };
-    cout << "числа: "<< endl;
-    for (size_t i = 0; i < size; i++)
-        cout  << data[i] << ', ';
-
+    
     cout <<endl<< "В hex:" << endl;
     print_in_hex(data, size);
     cout <<endl<< "В binary:" << endl;
-    print_in_binary(data, size);
-        
+    print_in_binary(data, size);        
     cout << endl;
-    system("PAUSE");
 }
