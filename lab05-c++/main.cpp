@@ -14,33 +14,50 @@ using namespace std;
 
 
 string dec_to_hex(int dec) {
-    int hex = 0, hex1 = 0;
+
+    int size = 0, decTemp = dec;
+    
     string hexStr;
-    for (; hex <= dec - 16; hex1++)
+
+    for (size_t i = 0; decTemp > 0; size++)
     {
-        hex = hex + 16;
+        decTemp = decTemp / 16;
     }
-    hex = dec - hex;
-    switch (hex)
+
+    int* hexInt = new int[size];
+    hexInt[0] = dec;
+
+    for (int i = 1; i < size ; i++)
     {
-        case 10: hexStr = 'A';
-            break;
-        case 11: hexStr = 'B';
-            break;
-        case 12: hexStr = 'C';
-            break;
-        case 13: hexStr = 'D';
-            break;
-        case 14: hexStr = 'E';
-            break;
-        case 15: hexStr = 'F';
-            break;
-    default:
-        if (hex < 10)
-            hexStr = to_string(hex);
-        break;
+        hexInt[i] = hexInt[i - 1] / 16;
     }
-    return to_string(hex1) + hexStr;
+    for (int j = 0;j < size; j++)
+    {
+
+        hexInt[j] = hexInt[j] % 16;
+
+        switch (hexInt[j])
+        {
+        case 10: hexStr = 'A' + hexStr;
+            break;
+        case 11: hexStr = 'B' + hexStr;
+            break;
+        case 12: hexStr = 'C' + hexStr;
+            break;
+        case 13: hexStr = 'D' + hexStr;
+            break;
+        case 14: hexStr = 'E' + hexStr;
+            break;
+        case 15: hexStr = 'F' + hexStr;
+            break;
+        default:
+            if (hexInt[j] < 10)
+                hexStr = to_string(hexInt[j]) + hexStr;
+            break;
+        }
+    }
+    delete[] hexInt;
+    return  hexStr;
 }
 
 
@@ -48,8 +65,13 @@ int main(void)
 {
     setlocale(LC_ALL, "Russian");
     int value;
-    cin >> value;
     
-    cout << endl << dec_to_hex(value)<< endl;
+    while (true)
+    {
+        cout << "-------------" << endl;
+        cin >> value;
+
+        cout << endl << dec_to_hex(value) << endl;
+    }
     system("PAUSE");
 }
