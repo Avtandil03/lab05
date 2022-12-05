@@ -15,7 +15,7 @@ using namespace std;
 
 string dec_to_hex(int dec) {
 
-    int size = 0, decTemp = dec;
+    unsigned int size = 0, decTemp = dec;
     
     string hexStr;
 
@@ -24,7 +24,7 @@ string dec_to_hex(int dec) {
         decTemp = decTemp / 16;
     }
 
-    int* hexInt = new int[size];
+    unsigned int* hexInt = new unsigned int[size];
     hexInt[0] = dec;
 
     for (int i = 1; i < size ; i++)
@@ -56,22 +56,124 @@ string dec_to_hex(int dec) {
             break;
         }
     }
+    if (hexStr.length() % 2 == 1) {
+        hexStr = '0' + hexStr;
+    }
+
     delete[] hexInt;
-    return  hexStr;
+    string tempStr;
+    for (size_t i = 0; i < hexStr.length(); i= i+2)
+    {
+        tempStr = hexStr[i + 1] + tempStr;
+        tempStr = hexStr[i] + tempStr;
+        tempStr = " " + tempStr;
+    }
+    return  tempStr;
+}
+
+void setNullToArr(unsigned int arr[] , int value) {
+
+    for (size_t i = 0; i < arr[65]; i++)
+    {
+        arr[arr[65] - i + value] = arr[arr[65] - i];
+    }
+    for (size_t i = 0; i < value; i++)
+    {
+        arr[i] = 0;
+    }
+}
+
+void coutArr(unsigned int arr[], int value) {
+    for (size_t i = 0; i <= value; i++)
+    {
+        cout << arr[i];
+        if ((value - i) % 8 == 0)
+            cout << ' ';
+    }
+}
+
+void dec_to_bin(int dec1 , int dec2 , char _operator)
+{
+    string binStr;
+
+    
+    unsigned int  arr[3][66], dec[2] = {dec1, dec2}, count;
+    for (size_t j = 0; j < 2; j++)
+    {
+        int i = 0, r;
+
+        while (dec[j] != 0)
+        {
+            r = dec[j] % 2;
+            arr[j][i++] = r;
+            dec[j] /= 2;
+        }
+
+        arr[j][65] = i - 1;
+    }
+
+    if ((arr[0][65] > arr[1][65])) {
+        arr[0][64] = arr[0][65] - arr[1][65];
+        arr[1][65] = arr[0][65];
+
+        setNullToArr(arr[1], arr[0][64]);
+
+    }
+    else if ((arr[0][65] < arr[1][65])) {
+        arr[0][64] = arr[1][65] - arr[0][65];
+        arr[0][65] = arr[1][65];
+
+        setNullToArr(arr[0], arr[0][64]);
+    }
+    else if ((arr[0][65] < arr[1][65])) {
+        arr[0][64] = 0;
+        arr[0][65] = arr[1][65];
+    }
+
+    for (size_t i = 0; i <= arr[0][65]; i++)
+    {
+        if (_operator == '&') {
+            arr[2][arr[0][65] - i] = arr[0][arr[0][65] - i] & arr[1][arr[1][65] - i];
+        } 
+        else if (_operator == '|')
+        {
+            arr[2][arr[0][65] - i] = arr[0][arr[0][65] - i] | arr[1][arr[1][65] - i];
+        }
+        else
+        {
+            arr[2][arr[0][65] - i] = arr[0][arr[0][65] - i] ^ arr[1][arr[1][65] - i];
+        }
+
+       
+    }
+
+
+    coutArr(arr[0], arr[0][65]);
+    cout << _operator << endl;
+    coutArr(arr[1], arr[0][65]);
+    cout << "=" << endl<< endl;
+    coutArr(arr[2], arr[0][65]);
+
 }
 
 
 int main(void)
 {
     setlocale(LC_ALL, "Russian");
-    int value;
-    
-    while (true)
+    unsigned int operand1, operand2;
+    char _operator = ' ';
+   
+    cout << "Операнд-1: ";
+    cin >> operand1;
+    while (_operator != '&' && _operator != '|' && _operator != '^' )
     {
-        cout << "-------------" << endl;
-        cin >> value;
-
-        cout << endl << dec_to_hex(value) << endl;
+        cout << endl << "Побитовый оператор( &, |, ^): " ;
+        cin >> _operator;
     }
-    system("PAUSE");
+    cout << endl << "Операнд-2: ";
+    cin >> operand2;
+    cout << endl;
+
+    cout << dec_to_hex(operand1) << ' ' << _operator << ' ' << dec_to_hex(operand2) << " =" << endl<<endl;
+    dec_to_bin(operand1, operand2, _operator);
 }
