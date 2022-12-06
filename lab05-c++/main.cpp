@@ -20,16 +20,21 @@ struct Studetn
 	bool sex;
 	uint8_t courseCount;
 	void fillInfo() {
-		while (strlen(this->name) < 2 )
-		{
-			cout << "Имя: ";
-			cin >> this->name;
-		}
-		while (this->year < 1950 || this->year > 2023)
-		{
-			cout << "Год поступления: ";
-			cin >> this->year;
-		}
+			
+		cout << "Имя: ";
+		cin >> this->name;
+
+		cout << "Год поступления: ";
+		cin >> this->year;
+
+		cout << "Средний балл: ";
+		cin >> this->avgScore;
+
+		cout << "Пол (0 — женский, 1 — мужской): ";
+		cin >> this->sex;
+
+		cout << "Количество пройденных курсов: ";
+		cin >> this->courseCount;
 	};
 };
 
@@ -40,10 +45,14 @@ int main(void)
 	
 	struct Studetn *starosta;
 
-	struct Studetn students[3];
+	Studetn students[3];
 	starosta = &students[0];
-
-	starosta->fillInfo();
+	for (size_t i = 0; i < sizeof(students)/sizeof(students[0]); i++)
+	{
+		cout << "Заполнение студента № " << i + 1 << ((i == 0) ? "(староста)" : "") << endl;
+		students[0].fillInfo();
+		cout << "---------------------"<<endl;
+	}
 	
 
 	system("pause");
