@@ -49,7 +49,7 @@ int main(void)
 	Studetn students[3];
 	starosta = &students[0];
 
-	cout << "Заполнение в ручную ?(1 - да, 0 || '' - нет)";
+	cout << "Заполнение в ручную ?(1 - да, 0 || '' - нет): ";
 	cin >> mode;
 
 	if (mode == 1)
@@ -67,16 +67,18 @@ int main(void)
 		students[2] = { "gleb", 2018, 3.2, 1, 6 };
 	}
 
-	// 3.3 1)
+	//3.3.1
+	cout << endl << "Адрес массива: " << &students << endl;
+	cout << "Размер массива: " << sizeof(students) << endl;
+
+	// 3.3 2)
 	for (size_t i = 0; i < 3; i++)
 	{
 		cout << "Адрес структуры students[" << i << "] - " << &students[i]<< endl;
-		cout << "Размер элемента[" << i << "] - " << sizeof(students[i]) << endl;
-
-		sizeof(bool);
+		cout << "Размер элемента[" << i << "] - " << sizeof(students[i])<< "байт" << endl<< endl;		
 	}
-
-	
+	 
+	//3.3.3
 	
 
 	system("pause");
