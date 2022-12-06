@@ -44,15 +44,39 @@ int main(void)
     setlocale(LC_ALL, "Russian");
 	
 	struct Studetn *starosta;
+	bool mode = 0;
 
 	Studetn students[3];
 	starosta = &students[0];
-	for (size_t i = 0; i < sizeof(students)/sizeof(students[0]); i++)
+
+	cout << "Заполнение в ручную ?(1 - да, 0 || '' - нет)";
+	cin >> mode;
+
+	if (mode == 1)
 	{
-		cout << "Заполнение студента № " << i + 1 << ((i == 0) ? "(староста)" : "") << endl;
-		students[0].fillInfo();
-		cout << "---------------------"<<endl;
+		for (size_t i = 0; i < sizeof(students) / sizeof(students[0]); i++)
+		{
+			cout << "Заполнение студента № " << i + 1 << ((i == 0) ? "(староста)" : "") << endl;
+			students[0].fillInfo();
+			cout << "---------------------" << endl;
+		}
 	}
+	else {
+		*starosta = { "anna", 2021, 5.0, 0, 23};
+		students[1] = { "petr", 2022, 4.3, 1, 9 };
+		students[2] = { "gleb", 2018, 3.2, 1, 6 };
+	}
+
+	// 3.3 1)
+	for (size_t i = 0; i < 3; i++)
+	{
+		cout << "Адрес структуры students[" << i << "] - " << &students[i]<< endl;
+		cout << "Размер элемента[" << i << "] - " << sizeof(students[i]) << endl;
+
+		sizeof(bool);
+	}
+
+	
 	
 
 	system("pause");
