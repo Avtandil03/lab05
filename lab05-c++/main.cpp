@@ -15,4 +15,16 @@ using namespace std;
 int main(void)
 {
     setlocale(LC_ALL, "Russian");
+
+	struct Studetn
+	{
+	char name[16] ;
+
+	};
+
+	Studetn starosta;
+	cout<<strlen(starosta.name);
+
+	system("pause");
+
 }
