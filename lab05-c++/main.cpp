@@ -38,6 +38,20 @@ struct Studetn
 	};
 };
 
+void logMemory(Studetn student) {
+    cout << "Имя: " << student.name<< "=" << &student.name << endl;
+    cout << "Год поступления: " << student.year << "=" << &student.year << endl;
+    cout << "Средний балл: " << student.avgScore << "=" << &student.avgScore << endl;
+    cout << "Количество пройденных курсов: " << student.courseCount << "=" << &student.courseCount << endl<< endl;
+}
+
+void logOffset(Studetn student) {
+    cout << "Имя: " << offsetof(struct Studetn, name) << endl;
+    cout << "Год поступления: " << offsetof(struct Studetn, year) << endl;
+    cout << "Средний балл: " << offsetof(struct Studetn, avgScore) << endl;
+    cout << "Количество пройденных курсов: " << "=" << offsetof(struct Studetn, courseCount) << endl << endl;
+}
+
 
 int main(void)
 {
@@ -78,7 +92,12 @@ int main(void)
 		cout << "Размер элемента[" << i << "] - " << sizeof(students[i])<< "байт" << endl<< endl;		
 	}
 	 
-	//3.3.3
+	//3.3.3 адрес, смещение от начала структуры, размер, шестнадцатеричное и двоичное представление;
+    
+    logMemory(students[1]);
+    logOffset(students[1]);
+    
+
 	
 
 	system("pause");
